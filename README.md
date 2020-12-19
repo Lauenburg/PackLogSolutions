@@ -2,7 +2,9 @@
 
 `data` - directory for datasets
 
-`code` - directory for codebase
+`backend` - directory for python backend
+
+`frontend` - directory for flutter ui
 
 ## Getting Started
 
