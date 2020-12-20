@@ -1,0 +1,25 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Standard",
+            "database": "advanced_sql",
+            "username": "postgres",
+            "password": "asturias2009"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "database": "packlog",
+            "name": "packlog",
+            "username": "postgres"
+        }
+    ],
+    "python.pythonPath": "C:\\Users\\mpere\\Anaconda3\\python.exe"
+}

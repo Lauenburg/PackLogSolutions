@@ -1,0 +1,1 @@
+CREATE TABLE artikel(ArtNo INTEGER PRIMARY KEY, Bezeichnung VARCHAR, FLOAT Laenge, FLOAT Breite, FLOAT Hoehe, FLOAT Gewicht, INTEGER VerpackId, INTEGER VerpackStueck)

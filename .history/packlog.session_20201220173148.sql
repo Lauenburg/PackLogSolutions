@@ -1,0 +1,1 @@
+CREATE TABLE itmes(ArtNo, Bezeichnung, Laenge, Breite, Hoehe, Gewicht, VerpackId, VerpackStueck)

@@ -1,0 +1,1 @@
+CREATE TABLE itmes(INTEGER ArtNo PRIMARY KEY, VARCHAR Bezeichnung, FLOAT Laenge, float Breite, float Hoehe, float Gewicht, INTEGER VerpackId, INTEGER VerpackStueck)
