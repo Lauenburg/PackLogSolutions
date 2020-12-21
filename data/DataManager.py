@@ -2,14 +2,16 @@ import psycopg2
 
 class DataManager:
     
-    # fill in your specs
-    connection = None
-    cursor = None
-    dbname = "packlog"
-    username = "postgres"
-    password =  ""
-    file_artikel = "data\Artikel_V1.csv"
-    file_transObj = "data\TransObj_V1.csv"
+    def __init__(self, password, dbname=None, username=None, file_artikel=None, file_transObj=None, connection=None, cursor=None):
+        
+        # fill in your specs
+        self.connection = connection
+        self.cursor = cursor
+        self.dbname = "packlog" if dbname == None else dbname
+        self.username = "postgres" if username==None else username
+        self.password =  password
+        self.file_artikel = "data\Artikel_V1.csv" if file_artikel==None else file_artikel
+        self.file_transObj = "data\TransObj_V1.csv" if file_transObj==None else file_transObj
 
 
     # resetting of tables -> needs to be executed before recreating table
@@ -62,13 +64,13 @@ class DataManager:
         return transobjs_list
 
 
-Manager = DataManager()
-Manager.connect()
-try:
-############## WRITE CODE ##############
+# manager = DataManager("<yourpassword>")
+# manager.connect()
+# try:
+# ############## WRITE CODE ##############
 
 
-############## WRITE CODE ##############
-    Manager.connection.commit()
-finally:
-    Manager.quit()
+# ############## WRITE CODE ##############
+#     manager.connection.commit()
+# finally:
+#     manager.quit()
