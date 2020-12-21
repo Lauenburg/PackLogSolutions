@@ -1,1 +1,0 @@
-CREATE TABLE itmes(integer ArtNo, varchar Bezeichnung, float Laenge, float Breite, Hoehe, Gewicht, VerpackId, VerpackStueck)

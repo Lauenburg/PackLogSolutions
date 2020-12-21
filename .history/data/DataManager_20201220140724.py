@@ -1,3 +1,0 @@
-import psy
-
-class DataManager:
