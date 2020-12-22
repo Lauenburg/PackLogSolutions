@@ -8,7 +8,7 @@ print("item_dict: ", item_dict)
 order_dict = {123: (date.today(), item_dict), 234: (date(2020, 1, 26), item_dict)}
 print("order_dict: ", order_dict)
 
-man = DataManager("OSall1789", "postgres")
+man = DataManager("", "postgres")
 man.connect()
 
 scheduler = Scheduler(man)
