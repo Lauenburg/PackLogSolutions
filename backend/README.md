@@ -4,23 +4,22 @@
 
 ### Interface
 * `startQuery()` provides the following data to the backend
-
-order_dict:
-```
-{   
-    order_id: (date, item_dict),
-    ...,
-    order_id: (date, item_dict)
-}
-```
 item_dict:
 ```
 {   
-    item_id: (quantity, prio), 
-    ..., 
-    item_id: (quantity, prio)
+    item_id: {date: ..., order_id: ..., quantity: ..., prio: ...},
+    ...,
+    item_id: {date: ..., order_id: ..., quantity: ..., prio: ...}
 }
 ```
+
+### Priorities
+> 1:  Low Prio (no time pressure)
+
+> 2:  Middle Prio (has to be delivered this month)
+
+> 3:  High Prio (has to be delivered in next 3 days)
+
 ## logic
 
 ```python
