@@ -1,14 +1,15 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api
 
 app = Flask("PackLogAPI")
 api = Api(app)
 
-class HelloWorld(Resource):
+class Estimator(Resource):
     def get(self):
-        return {'hello': 'world'}
+        print(request.values)
+        return {'estimate': request.values}
 
-api.add_resource(HelloWorld, '/')
+api.add_resource(Estimator, '/estimator')
 
 if __name__ == '__main__':
     app.run(debug=True)
