@@ -10,8 +10,8 @@ class DataManager:
         self.dbname = "packlog" if dbname == None else dbname
         self.username = "postgres" if username==None else username
         self.password =  password
-        self.file_artikel = "data\Artikel_V1.csv" if file_artikel==None else file_artikel
-        self.file_transObj = "data\TransObj_V1.csv" if file_transObj==None else file_transObj
+        self.file_artikel = "data/Artikel_V1.csv" if file_artikel==None else file_artikel
+        self.file_transObj = "data/TransObj_V1.csv" if file_transObj==None else file_transObj
 
 
     # resetting of tables -> needs to be executed before recreating table
