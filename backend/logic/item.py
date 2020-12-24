@@ -34,7 +34,7 @@ class Item:
         '''
         assert isinstance(sql_item, tuple)
         
-        # retrive information from query tupel
+        # retrive information from query tuple
         item_id, name, l, b, h, weight, pack_id, max_quant = sql_item
 
         return Item(item_id, name, dimensions=[l, b, h], weight=weight, packing_id=pack_id, max_quantity=max_quant,

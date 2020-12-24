@@ -13,7 +13,6 @@ order_one = {"client_id": 1001, "order_id": 34, "date": date.today(), "out_date"
 order_two = {"client_id": 1001, "order_id": 12, "date": date.today(), "out_date": date(2021,1,1), 
             "items_id_prio_quant": [(727299, 2, 10), (750585, 1, 2), (30320, 3, 10), (730051, 1, 2), (117471, 3, 10)]}
 
-
 if __name__ == "__main__":
     # create data manager instance and connect to DB
     man = DataManager("packlog",dbname="packlog", username="packlog")
