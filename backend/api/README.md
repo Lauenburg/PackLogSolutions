@@ -3,11 +3,13 @@
 ## How to use API
 
 ### Start server
+from `packlogsolutions` directory call
 ```
-python api.py
+python -m backend.api.api
 ```
 
 ### Test with POST request
+from `packlogsolutions` directory call
 ```
-python test_api.py
+python -m backend.api.test_api
 ```
