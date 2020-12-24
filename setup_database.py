@@ -1,5 +1,5 @@
 import argparse
-from data.DataManager import DataManager
+from backend.data import DataManager
 
 info = "Load data into database script"
 epilog = "EXAMPLE: python setup_database.py -dbname packlog -u postgres -p 1234"
