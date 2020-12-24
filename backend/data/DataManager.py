@@ -2,7 +2,7 @@ import psycopg2
 
 class DataManager:
     
-    def __init__(self, password, dbname=None, username=None, file_artikel=None, file_transObj=None, connection=None, cursor=None):
+    def __init__(self, password, dbname=None, username=None, file_article=None, file_transObj=None, connection=None, cursor=None):
         
         # fill in your specs
         self.connection = connection
@@ -16,20 +16,20 @@ class DataManager:
 
     # resetting of tables -> needs to be executed before recreating table
     def reset(self):
-        self.cursor.execute('DROP TABLE artikel')
+        self.cursor.execute('DROP TABLE article')
         self.cursor.execute('DROP TABLE transObj')
 
 
     # creating of tables and reading of data -> needs to be executed at the beginning anf for reading updated files
     def create(self):       
             
-        self.cursor.execute('CREATE TABLE artikel(ArtNo INTEGER PRIMARY KEY, Bezeichnung VARCHAR, Laenge FLOAT, Breite FLOAT, Hoehe FLOAT, Gewicht FLOAT, VerpackId INTEGER, VerpackStueck INTEGER)')
-        with open(self.file_artikel, 'r') as f:
+        self.cursor.execute('CREATE TABLE article(ArtNo INTEGER PRIMARY KEY, Bezeichnung VARCHAR, Laenge FLOAT, Breite FLOAT, Hoehe FLOAT, Gewicht FLOAT, VerpackId INTEGER, VerpackStueck INTEGER)')
+        with open(self.file_article, 'r', encoding="ISO-8859-1") as f:
             next(f) 
-            self.cursor.copy_from(f, 'artikel', sep=';')
+            self.cursor.copy_from(f, 'article', sep=';')
 
         self.cursor.execute('CREATE TABLE transObj(Id INTEGER PRIMARY KEY, Bezeichnung VARCHAR, Laenge FLOAT, Breite FLOAT, Hoehe FLOAT, Gewicht FLOAT)')
-        with open(self.file_transObj, 'r') as f:
+        with open(self.file_transObj, 'r', encoding="ISO-8859-1") as f:
             next(f) 
             self.cursor.copy_from(f, 'transObj', sep=';')
 
@@ -43,15 +43,18 @@ class DataManager:
         self.cursor.close()
         self.connection.close()
 
-
-    # takes list of artikel-ArtNos and returns list of artikel tuples
-    def getArtikel(self, ids):
-        artikel_list = []
+    # takes article-ArtNos and returns the article tuple
+    def getArticle(self, id):
+        self.cursor.execute("SELECT * FROM artikel WHERE artno = " + str(id))
+        article = self.cursor.fetchone()
+        return article
+    
+    # takes list of article-ArtNos and returns list of article tuples
+    def getArticles(self, ids):
+        article_list = []
         for id in ids:
-            self.cursor.execute("SELECT * FROM artikel WHERE artno = " + str(id))
-            artikel = self.cursor.fetchone()
-            artikel_list.append(artikel)
-        return artikel_list
+            article_list.append(self.getArticle(id))
+        return article_list
 
 
     # takes list of tranobj-ids and returns list of transobj tuples

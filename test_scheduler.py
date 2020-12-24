@@ -5,10 +5,12 @@ from datetime import date
 item_dict = {104771: (10, 1), 105386: (20,2)}
 print("item_dict: ", item_dict)
 
-order_dict = {123: (date.today(), item_dict), 234: (date(2020, 1, 26), item_dict)}
-print("order_dict: ", order_dict)
-
-man = DataManager("", "postgres")
+#order_dict = {123: (date.today(), item_dict), 234: (date(2020, 1, 26), item_dict)}
+#print("order_dict: ", order_dict)
+a = {}
+a["b"] = 1
+print(a)
+man = DataManager("packlog",dbname="packlog", username="packlog")
 man.connect()
 
 scheduler = Scheduler(man)
