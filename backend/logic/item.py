@@ -23,14 +23,18 @@ class Item:
 
     @ classmethod
     def from_item_query(clc, sql_item, quantity = 1, client_id=None, order_id=None, date=None, out_date=None, prio=None):
-        ''' Class mehtod used to initialize new class instances given an item query .
+        ''' Class mehtod used to initialize new class instances given an item query by DataManager.getArticle(item_id)
+            
             Input: 
                 sql_item = item query tuple retrived by the data manager's getArticle function
+                quantity: Ordered quantity of an item
+
             Return: 
                 Item instance
         '''
         assert isinstance(sql_item, tuple)
         
+        # retrive information from query tupel
         item_id, name, l, b, h, weight, pack_id, max_quant = sql_item
 
         return Item(item_id, name, dimensions=[l, b, h], weight=weight, packing_id=pack_id, max_quantity=max_quant,

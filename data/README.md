@@ -14,7 +14,7 @@
     manager = DataManager("<password>")
     manager.connect()
 
-    item_specs = manager.getArticles([id])
+    item_specs = manager.getArticles(id)
    ```
 
 # Data
