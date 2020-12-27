@@ -1,7 +1,7 @@
 import sys
 sys.path.append('..')
 
-from data import DataManager
+from backend.data import DataManager
 from backend.logic import Scheduler, Item
 from datetime import date
 
