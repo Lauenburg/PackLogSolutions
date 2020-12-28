@@ -9,3 +9,15 @@ class TransportUnit:
         self.name = name
         self.volume = volume
         self.weight = weight
+        self.cap_used = 0
+        self.cap_free = volume
+        self.loaded_item_pool = {}
+        
+    def __repr__(self):
+        return str("ID: "+str(self.id)+", Name: "+ self.name)
+
+    def add_cap(self,volume):
+        assert ((self.cap_free - volume) > 0)
+        assert ((self.cap_used + volume) < self.volume) 
+        self.cap_used += volume
+        self.cap_free = self.volume - self.cap_used
