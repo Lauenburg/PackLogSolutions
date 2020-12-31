@@ -32,8 +32,7 @@ class Estimator(Resource):
         data = request.get_json()
 
         # process data & get estimate
-        app.logger.info("Started data processing.")
-        estimate = 0
+        app.logger.info(data)
 
         return {'estimate': estimate}
 
