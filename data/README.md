@@ -7,14 +7,14 @@
    ```
     python setup_database.py --dbname ... -u username -p password
    ```
-4. Now you can fetch artikel and transObjs from the database
+4. Now you can fetch Articles and transObjs from the database
    ```
     from data.DataManager import DataManager
 
     manager = DataManager("<password>")
     manager.connect()
 
-    item_specs = manager.getArtikel([id])
+    item_specs = manager.getArticles(id)
    ```
 
 # Data
