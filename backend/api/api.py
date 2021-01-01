@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 
 from ..logic import Scheduler
 from ..data import DataManager
+from .estimation import rough_estimation
 
 import json
 import argparse
@@ -32,9 +33,12 @@ class Estimator(Resource):
         data = request.get_json()
 
         # process data & get estimate
-        app.logger.info(data)
+        proportions = rough_estimation(data)
 
-        return {'estimate': estimate}
+        # data logging
+        app.logger.info(out)
+
+        return {'estimate': 0}
 
 api.add_resource(Estimator, '/estimator')
 
