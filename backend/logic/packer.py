@@ -1,4 +1,5 @@
 from . import Item, TransportUnit
+from .planning_util import free_trans_cap, client_items_cap, full_items_cap
 import copy
 
 class Packer:
@@ -13,6 +14,8 @@ class Packer:
         self.units_full = [False] * len(transport_units)
         self.all_units_full = False
         self.pool_empty = False
+        self.eps = 1e-10
+
 
     def load_client_items(self, client_id, prio=None):
         """ Packs all items in the item pool corresponding to the client id in to the available transport units.
@@ -24,10 +27,15 @@ class Packer:
         """
         
         # Calculate the still available free capacity of the transport units and the capacity of the unpacked items.
-        free_cap = self.free_trans_cap()
-        item_cap = self.client_items_cap(self.pool_ordered_unpacked, client_id, prio)
+        free_cap = free_trans_cap(self.transport_units)
+        item_cap = 0
+        if prio is not None:
+            for i in range(prio):
+                item_cap += client_items_cap(self.pool_ordered_unpacked, client_id, i+1)
+        else:
+            item_cap = client_items_cap(self.pool_ordered_unpacked, client_id)
         print("Currently free transportation capacity: ", free_cap)
-        print("capacity of the items scheduled for packing: ", item_cap)
+        print("Capacity of the items scheduled for packing: ", item_cap)
 
         # select the first transport unit in the list that is not full yet
         try:
@@ -62,58 +70,38 @@ class Packer:
                 self._load_item(client_id, current_item_id, current_item, current_trans_unit)
                 self._remove_item_from_pool(client_id, current_item_id)
 
-        return self.packed_vs_unpacked_cap(client_id, prio= 1), self.packed_vs_unpacked_cap(client_id, prio= 2), self.packed_vs_unpacked_cap(client_id, prio= 3)
+        return self._packed_vs_unpacked_cap(client_id, prio= 1), self._packed_vs_unpacked_cap(client_id, prio= 2), self._packed_vs_unpacked_cap(client_id, prio= 3)
 
-    def packed_vs_unpacked_cap(self, client_id, prio=None):
+    def fit_capacities(self, client_id):
+        """ Fits the item volume to the free transport volume based on priority. 
+            First tries to fit all items of prio one, followed by two, followed by three.
+
+            Returns:
+                A list of tuples. Each tuple is comprised of "items volume of prio x" that fit the transport units and
+                "items volume of prio x" that do not fit the transport unit. The order is prio one, two, three.
+                Example output, assumeing that all items fit: [(cap_prio_1, 0), (cap_prio_2, 0), (cap_prio_3, 0)]
+        """
+        transport_cap = free_trans_cap(self.transport_units)
+        # initialize matched capacity list with all items unpacked 
+        matched_cap = [(0,client_items_cap(self.pool_ordered,client_id, prio=1)),
+                        (0,client_items_cap(self.pool_ordered,client_id, prio=2)),
+                        (0,client_items_cap(self.pool_ordered,client_id, prio=3))]
+        for item in self.pool_ordered[client_id].values():
+            if item.cap <= transport_cap:
+                matched_cap[item.prio-1] = (matched_cap[item.prio-1][0]+item.cap, 
+                                            matched_cap[item.prio-1][1]-item.cap if matched_cap[item.prio-1][1]-item.cap > self.eps else 0)
+                transport_cap -= item.cap
+        return matched_cap
+
+    def _packed_vs_unpacked_cap(self, client_id, prio=None):
         """ Calculates the capcity of the items that got allready packed and the items that got not packed yet
 
             Return:
                 A tuple of format: (pack_cap, unpack_cap)
         """
-        original_cap = self.client_items_cap(self.pool_ordered, client_id, prio)
-        unpacked_cap = self.client_items_cap(self.pool_ordered_unpacked, client_id, prio)
+        original_cap = client_items_cap(self.pool_ordered, client_id, prio)
+        unpacked_cap = client_items_cap(self.pool_ordered_unpacked, client_id, prio)
         return original_cap-unpacked_cap, unpacked_cap
-
-    def free_trans_cap(self, report=False):
-        # calculates the free capacity in the transport units
-        capacity = 0
-        for unit in self.transport_units:
-            capacity += self.transport_units[unit].cap_free
-            if report:
-                print("Transport unit {0} has {1} square meter free space left, {2} square meter are allready filled.".format(unit, self.transport_units[unit].cap_free, self.transport_units[unit].cap_used))
-        return capacity
-
-    
-    def client_items_cap(self, pool, client_id, prio=None, order_id=None):
-        """ Calculates the capcity of the items in a pool. The pool can either be the original self.pool_ordered
-            or self.pool_ordered_unpacked. The calculation can be restricted to items with a given priority, order_id
-            or priority and order_id.
-        """ 
-        capacity = 0.0
-        # capacity of all items ordered by the client
-        if prio is None and order_id is None:
-            for item_id in pool[client_id]:
-                capacity += pool[client_id][item_id].cap
-        # capacity of the client's items given a prio
-        elif prio is not None and order_id is None:
-            for item_id in pool[client_id]:
-                capacity += pool[client_id][item_id].cap if pool[client_id][item_id].prio == prio else 0
-        # capacity of the client's items given a order id
-        elif prio is None and order_id is not None:
-            for item_id in pool[client_id]:
-                capacity += pool[client_id][item_id].cap if pool[client_id][item_id].order_id == order_id else 0
-        # capacity of the client's items given a order id and a prio
-        else:
-            for item_id in pool[client_id]:
-                capacity += pool[client_id][item_id].cap if pool[client_id][item_id].order_id == order_id and pool[client_id][item_id].prio == prio else 0
-        return capacity
-
-    def full_items_cap(self, pool, prio=None):
-        # calculates the capacity of all items in the pool. Can be restricted by the prio
-        capacity = 0
-        for client_id in pool:
-            capacity += self.client_items_cap(pool, client_id, prio=prio)
-        return capacity
 
     def _load_item(self, client_id, item_id, item, trans_unit):
         """ Writes the given item to the loaded_item_pool dictionary.

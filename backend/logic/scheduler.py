@@ -1,6 +1,8 @@
 from . import Item, TransportUnit
+from .planning_util import free_trans_cap, client_items_cap, full_items_cap
 import collections
 from datetime import date
+
 
 class Scheduler:
 
@@ -14,7 +16,7 @@ class Scheduler:
         """ Takes an order and adds the items from the order to the clients subpool with in self.pool (see: _add_item_to_pool).
             If the client does not have its own subpool with in self.pool yet, a subpool gets initialized (see: _add_client_pool).
 
-            Input:
+            Args:
                 item_query: Out put of the data base query DataManager.getArticle(item_id)
                 quantity: Ordered quantity of an item
         """
@@ -27,7 +29,7 @@ class Scheduler:
     def add_full_order_to_pool(self, order):
         """ Takes an order dictionary and adds all the items in the order to the pool
 
-            Input:
+            Args:
                 order: A dictionary representing an order.
 
             Example Order Dic.:
@@ -55,6 +57,16 @@ class Scheduler:
         else:
             self.pool[client_id][item_query[0]]["item"].quantity = self.pool[client_id][item_query[0]]["item"].quantity + quantity
 
+    def trans_unit_estimate(self, trans_unit_type, client_id, prio, order_id=None):
+        """ Calculates how many units of type `trans_unit_type` are needed to pack all items of client `client_id`
+            with prio `prio` and order id `order_id`.
+
+            Args:
+                trans_unit_type: Type of the transport unit like "truck". See transport.py
+        """
+        assert bool(self.pool_ordered), "pool_ordered can not be empty. Run schedular.order_pool() first"
+        return client_items_cap(self.pool_ordered, client_id, prio, order_id=order_id)/TransportUnit(0000, "truck").volume
+
     def order_pool(self):
         # Creates an ordered version of self.pool with in self.pool_ordered (see: _ordered_item_list and _ordered_client_dict)
         client_ids = list(self.pool.keys())
@@ -77,7 +89,7 @@ class Scheduler:
             self.pool_ordered[client_id][item_id]= self.pool[client_id][item_id]
 
     def add_trans(self, trans_dic):
-        self.transport_units[trans_dic["id"]] = TransportUnit(trans_dic["id"], trans_dic["name"], trans_dic["volume"], trans_dic["weight"]) 
+        self.transport_units[trans_dic["id"]] = TransportUnit(trans_dic["id"], trans_dic["unit_type"]) 
 
     def add_trans_list(self,list_of_trans_dic):
         for trans_dic in list_of_trans_dic:

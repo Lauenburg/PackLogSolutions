@@ -13,10 +13,8 @@ order_one = {"client_id": 1001, "order_id": 34, "date": date.today(), "out_date"
 order_two = {"client_id": 1001, "order_id": 12, "date": date.today(), "out_date": date(2021,1,1), 
             "items_id_prio_quant": [(727299, 2, 10), (750585, 1, 2), (30320, 3, 10), (730051, 1, 2), (117471, 3, 10)]}
 
-transport = [{"id":23, "name":"Walter", "volume":12*2*2, "weight":2000}, 
-                {"id":213, "name":"Manfred", "volume":12*2*2, "weight":2000},
-                {"id":43, "name":"Thomas", "volume":12*2*2, "weight":2000}]
-                
+transport = [{"id":23, "unit_type":"truck"}, 
+                {"id":213, "unit_type":"container"}]                
 if __name__ == "__main__":
     # create data manager instance and connect to DB
     man = DataManager("packlog",dbname="packlog", username="packlog")
@@ -46,7 +44,7 @@ if __name__ == "__main__":
     print(scheduler.pool_ordered[1001])
     ### Transport Units ###
     # Add single transporter to the transport units
-    scheduler.add_trans({"id":99, "name":"Hanz", "volume":12*2*2, "weight":2000})
+    scheduler.add_trans({"id":99, "unit_type":"truck"})
     # Add multiple transporter to the transport units
     scheduler.add_trans_list(transport)
 
