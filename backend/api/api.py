@@ -7,6 +7,7 @@ from .estimation import rough_estimation
 
 import json
 import argparse
+import random
 
 ### parse arguments ###
 info = "Start PackLogSolutions Backend Server"
@@ -18,6 +19,7 @@ parser.add_argument("-u", "--username", help="username name", type=str)
 parser.add_argument("-fa", "--file-article", help="article file name", type=str)
 parser.add_argument("-ft", "--file-transobj", help="tansobj file name", type=str)
 parser.add_argument("-p", "--password", help="user password", type=str, required=True)
+parser.add_argument("-v", "--verbose", help="logging", action='store_true')
 args = parser.parse_args()
 
 
@@ -32,13 +34,20 @@ class Estimator(Resource):
         # get data from post request
         data = request.get_json()
 
+        # pre-process data to make consistent with backend (TODO: modify backend to be consistent)
+        items = []
+        for item in data["items_id_prio_quant"]:
+            items.append((int(item["id"]), random.randint(1,3), int(item["quantity"])))
+        data["items_id_prio_quant"] = items
+        
         # process data & get estimate
-        proportions = rough_estimation(data)
+        proportions = rough_estimation(data,data_manager)
 
         # data logging
-        app.logger.info(out)
+        if args.verbose:
+            app.logger.info(data)
 
-        return {'estimate': 0}
+        return {'estimate': proportions}
 
 api.add_resource(Estimator, '/estimator')
 
