@@ -6,6 +6,8 @@
 
 `frontend` - directory for flutter ui
 
+<br></br><br></br>
+
 ## Getting Started
 
 ### Requirements
@@ -34,11 +36,52 @@ conda list --explicit > requirements.txt
 
 ### Start Backend Server
 
+The following command will start a local server (http://127.0.0.1:5000/) hosting the backend API:
 ```
 python -m backend.api.api -n "database_name" -p "password"
 ```
 
 ### Start Frontend
+
+<br></br><br></br>
+
+## API Documentation
+
+The API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes.
+
+### Estimator
+
+|  | |
+|--------|--------|
+| Type: | POST |
+| URL: | `http://127.0.0.1:5000/estimator` |
+| Body_type: | json |
+| Response_type: | json |
+
+Example body:
+
+```
+{
+    "client_id": 1, "order_id": 2, "date": (1,1,20), "out_date": (1,1,20), "transport_unit": "truck", 
+    "items_id_prio_quant": [
+        {"quantity": 8.0, "id": 118737.0, "prio": 1},
+        {"quantity": 31.0, "id": 22560.0, "prio": 2}]
+}
+```
+
+Example response:
+
+```
+{
+    "estimate": {
+        "1": 0.8129161138714687,
+        "2": 0.5924470711165138,
+        "3": 0.9091748656049263
+    }
+}
+```
+
+<br></br><br></br>
 
 ## Examples/Tests
 
@@ -55,6 +98,8 @@ python -m backend.api.test_api
 python -m backend.examples.test_schedular -n "database_name" -p "password"
 python -m backend.examples.test_packer -n "database_name" -p "password"
 ```
+
+<br></br><br></br>
 
 ## Git Best Practices
 (`master` is main branch, create new branch to make changes and merge)
