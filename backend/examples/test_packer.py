@@ -7,7 +7,15 @@ from backend.logic.planning_util import free_trans_cap, client_items_cap, full_i
 from backend.data.data_util import read_from_xl, write_dic_to_json
 from datetime import date
 import random
+import argparse
 
+parser = argparse.ArgumentParser(description="test schedular")
+parser.add_argument("-n", "--dbname", help="database name", type=str)
+parser.add_argument("-u", "--username", help="username name", type=str)
+parser.add_argument("-fa", "--file-article", help="article file name", type=str)
+parser.add_argument("-ft", "--file-transobj", help="tansobj file name", type=str)
+parser.add_argument("-p", "--password", help="user password", type=str, required=True)
+args = parser.parse_args()
 
 # Sample orders
 order_one = {"client_id": 1001, "order_id": 34, "date": date.today(), "out_date": date(2021,2,1), 
@@ -28,7 +36,7 @@ transport1 = [{"id":23, "unit_type":"truck"}]
 
 if __name__ == "__main__":
     # create data manager instance and connect to DB
-    man = DataManager("packlog",dbname="packlog", username="packlog")
+    man = DataManager(args.password, args.dbname, args.username, args.file_article, args.file_transobj)
     man.connect()
     
     # initialize a schedular
@@ -70,7 +78,7 @@ if __name__ == "__main__":
     print(free_trans_cap(packer.transport_units, report=True))
 
     # Test with order loaded by data_util.py
-    json_dic = read_from_xl('/Users/lauenburg/Privat/CodeProjects/packlogsolutions/exampels/sample_orders/first_orders.xlsx', 
+    json_dic = read_from_xl('./backend/examples/sample_orders/first_orders.xlsx', 
                         "order_one", ["quantity", "id", "name", "weight", "volume"])
     # Create order dic from parsed order
     order_four = {"client_id": 2001, "order_id": 2, "date": date.today(), "out_date": date(2021,1,25), "items_id_prio_quant": []}

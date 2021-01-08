@@ -3,7 +3,7 @@ from datetime import date
 
 
 if __name__ == "__main__":
-    json_dic = read_from_xl('/Users/lauenburg/Privat/CodeProjects/packlogsolutions/exampels/sample_orders/first_orders.xlsx', 
+    json_dic = read_from_xl('./backend/examples/sample_orders/first_orders.xlsx', 
                             "order_one", ["quantity", "id", "name", "weight", "volume"])
 
     # Create order dic from parsed order
@@ -14,4 +14,4 @@ if __name__ == "__main__":
     print(order_one)
 
     # convert to json and write to file
-    j = write_dic_to_json(json_dic, "/Users/lauenburg/Privat/CodeProjects/packlogsolutions/exampels/sample_orders/","order_one", "first_orders")
+    j = write_dic_to_json(json_dic, "./backend/examples/sample_orders/","order_one", "first_orders")

@@ -4,6 +4,15 @@ sys.path.append('..')
 from backend.data import DataManager
 from backend.logic import Scheduler, Item
 from datetime import date
+import argparse
+
+parser = argparse.ArgumentParser(description="test schedular")
+parser.add_argument("-n", "--dbname", help="database name", type=str)
+parser.add_argument("-u", "--username", help="username name", type=str)
+parser.add_argument("-fa", "--file-article", help="article file name", type=str)
+parser.add_argument("-ft", "--file-transobj", help="tansobj file name", type=str)
+parser.add_argument("-p", "--password", help="user password", type=str, required=True)
+args = parser.parse_args()
 
 # Sample orders
 order_one = {"client_id": 1001, "order_id": 34, "date": date.today(), "out_date": date(2021,2,1), 
@@ -17,7 +26,7 @@ transport = [{"id":23, "unit_type":"truck"},
                 {"id":213, "unit_type":"container"}]                
 if __name__ == "__main__":
     # create data manager instance and connect to DB
-    man = DataManager("packlog",dbname="packlog", username="packlog")
+    man = DataManager(args.password, args.dbname, args.username, args.file_article, args.file_transobj)
     man.connect()
     
     # initialize a schedular
