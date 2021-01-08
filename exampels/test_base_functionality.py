@@ -26,6 +26,3 @@ if __name__ == "__main__":
     item_id, prio, quant = order_two["items_id_prio_quant"][0]
     item_full = Item.from_item_query(item_query, quant, order_two["client_id"], order_two["order_id"], 
                                     order_two["date"], order_two["out_date"], prio) 
-
-    a = [False,False,False,False]
-    print(a.index(True))
