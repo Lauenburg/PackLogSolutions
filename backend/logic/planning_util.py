@@ -8,7 +8,6 @@ def free_trans_cap(transport_units, report=False):
                             Example: {id<1>: transunit_instance, ..., id<n>:transunit_instance}
     """
     capacity = 0
-    print(transport_units)
     for unit in transport_units:
         capacity += transport_units[unit].cap_free
         if report:

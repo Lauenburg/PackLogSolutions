@@ -18,7 +18,7 @@ class Scheduler:
 
             Args:
                 item_query: Out put of the data base query DataManager.getArticle(item_id)
-                quantity: Ordered quantity of an item
+                quantity: Ordered quantity of an item.
         """
         if prio == None:
            prio = self._set_prio(out_date) 
@@ -27,7 +27,7 @@ class Scheduler:
         self._add_item_to_pool(item_query, quantity, client_id, order_id, date, out_date, prio)
 
     def add_full_order_to_pool(self, order):
-        """ Takes an order dictionary and adds all the items in the order to the pool
+        """ Takes an order dictionary and adds all the items in the order to the pool.
 
             Args:
                 order: A dictionary representing an order.
@@ -41,8 +41,10 @@ class Scheduler:
                                     order["order_id"], order["date"], order["out_date"], prio)
 
     def _set_prio(self, item_date):
-        date_diff = date.timedifference(date.today(), item_date)
-        prio = 3 if date_diff > 'one month' else 2 if date_diff > 'one week' else 1
+        # calculate time betwen date of delivery and today
+        date_diff = item_date - date.today() 
+        # priorities based on days betwen date of delivery and today, month ~= 30, week = 7
+        prio = 3 if date_diff.days > 30 else 2 if date_diff.days > 7 else 1
         return prio
 
     def _add_client_pool(self, client_id):

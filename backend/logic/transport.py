@@ -4,7 +4,7 @@ class TransportUnit:
         
         assert type(id) == int, "id is not an integer: %r is of type %r" % (id, type(id))
 
-        self.trans_units = {"container": 4, "small_truck": 2, "truck": 4}
+        self.trans_units = {"container": 2.4384*2.4384*12.192, "small_truck": 2.4384*2.4384*6.096 , "truck": 2.4384*2.4384*12.192}
 
         assert unit_type in self.trans_units.keys(), "unit_type has to be set to one of the following: %r" % (self.trans_units.keys())
 
