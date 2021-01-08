@@ -32,7 +32,31 @@ after you have installed new python packages, update requirements.txt file:
 conda list --explicit > requirements.txt
 ```
 
-### How to make changes
+### Start Backend Server
+
+```
+python -m backend.api.api -n "database_name" -p "password"
+```
+
+### Start Frontend
+
+## Examples/Tests
+
+### Send POST requests to API
+
+Start Backend server and execute test script:
+```
+python -m backend.api.test_api 
+```
+
+### Test logic functions
+
+```
+python -m backend.examples.test_schedular -n "database_name" -p "password"
+python -m backend.examples.test_packer -n "database_name" -p "password"
+```
+
+## Git Best Practices
 (`master` is main branch, create new branch to make changes and merge)
 ```
 git pull
