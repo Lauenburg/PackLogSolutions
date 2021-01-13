@@ -81,6 +81,39 @@ Example response:
 }
 ```
 
+### Packer
+
+|  | |
+|--------|--------|
+| Type: | POST |
+| URL: | `http://127.0.0.1:5000/packer` |
+| Body_type: | json |
+| Response_type: | json |
+
+Example body:
+
+```
+{
+    "client_id": 1, "order_id": 2, "date": (1,1,20), "out_date": (1,1,20), "transport_unit": "truck", 
+    "items_id_prio_quant": [
+        {"quantity": 8.0, "id": 118737.0, "prio": 1},
+        {"quantity": 31.0, "id": 22560.0, "prio": 2}]
+}
+```
+
+Example response:
+
+```
+{
+    "estimate": {
+        "1": 0.8129161138714687,
+        "2": 0.5924470711165138,
+        "3": 0.9091748656049263
+    },
+    "n_items_last": 5
+}
+```
+
 <br></br><br></br>
 
 ## Examples/Tests
