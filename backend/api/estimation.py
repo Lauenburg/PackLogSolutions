@@ -16,8 +16,8 @@ def rough_estimation(order_dict, data_manager):
     
     # packer = Packer(scheduler.transport_units, scheduler.pool_ordered)
     return {'estimate': {   1: [trans_estimate_1, 0], \
-                            2: [trans_estimate_2, 0], \
-                            3: [trans_estimate_3, 0]
+                            2: [0, trans_estimate_2], \
+                            3: [0, trans_estimate_3]
                         }
             }
 

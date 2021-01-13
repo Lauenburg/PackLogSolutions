@@ -37,7 +37,7 @@ class Estimator(Resource):
         # pre-process data to make consistent with backend (TODO: modify backend to be consistent)
         items = []
         for item in data["items_id_prio_quant"]:
-            prio = int(item["id"]) if "prio" in item.keys() else random.randint(1,3)
+            prio = int(item["prio"]) if "prio" in item.keys() else random.randint(1,3)
             items.append((int(item["id"]), prio, int(item["quantity"])))
         data["items_id_prio_quant"] = items
         
@@ -58,7 +58,7 @@ class Packer(Resource):
         # pre-process data to make consistent with backend (TODO: modify backend to be consistent)
         items = []
         for item in data["items_id_prio_quant"]:
-            prio = int(item["id"]) if "prio" in item.keys() else random.randint(1,3)
+            prio = int(item["prio"]) if "prio" in item.keys() else random.randint(1,3)
             items.append((int(item["id"]), prio, int(item["quantity"])))
         data["items_id_prio_quant"] = items
         
