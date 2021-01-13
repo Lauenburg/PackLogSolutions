@@ -3,7 +3,7 @@ from flask_restful import Resource, Api
 
 from ..logic import Scheduler
 from ..data import DataManager
-from .estimation import rough_estimation
+from .estimation import rough_estimation, fill_last_transport_unit
 
 import json
 import argparse

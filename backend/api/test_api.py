@@ -12,3 +12,5 @@ item_dict = {"client_id": 1, "order_id": 2, "date": (1,1,20), "out_date": (1,1,2
 # make POST request to estimator URL
 response = requests.post(BASE_URL + "estimator", json=item_dict)
 print(response.text)
+response = requests.post(BASE_URL + "packer", json=item_dict)
+print(response.text)

@@ -1,4 +1,5 @@
 from ..logic import Scheduler, Packer
+import math
 
 def rough_estimation(order_dict, data_manager):
 
@@ -21,15 +22,18 @@ def rough_estimation(order_dict, data_manager):
             }
 
 
-def fill_last_transport_unit(order_dict, transport_units, data_manager):
+def fill_last_transport_unit(order_dict, data_manager):
 
     client_id = order_dict["client_id"]
+    transport_unit = order_dict["transport_unit"]
 
     ##### TODO: #####
 
     scheduler = Scheduler(data_manager)
     scheduler.add_full_order_to_pool(order_dict)
     scheduler.order_pool()
+    n_trans_units = math.floor(scheduler.trans_unit_estimate(transport_unit, client_id, 1)) + 1
+    transport_units = [{"id": 23, "unit_type": "truck"} for i in range(n_trans_units)]
     scheduler.add_trans_list(transport_units)
 
     packer = Packer(scheduler.transport_units, scheduler.pool_ordered)
