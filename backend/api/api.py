@@ -37,7 +37,8 @@ class Estimator(Resource):
         # pre-process data to make consistent with backend (TODO: modify backend to be consistent)
         items = []
         for item in data["items_id_prio_quant"]:
-            items.append((int(item["id"]), random.randint(1,3), int(item["quantity"])))
+            prio = int(item["id"]) if "prio" in item.keys() else random.randint(1,3)
+            items.append((int(item["id"]), prio, int(item["quantity"])))
         data["items_id_prio_quant"] = items
         
         # process data & get estimate
@@ -47,9 +48,31 @@ class Estimator(Resource):
         if args.verbose:
             app.logger.info(data)
 
-        return {'estimate': proportions}
+        return proportions
+
+class Packer(Resource):
+    def post(self):
+        # get data from post request
+        data = request.get_json()
+
+        # pre-process data to make consistent with backend (TODO: modify backend to be consistent)
+        items = []
+        for item in data["items_id_prio_quant"]:
+            prio = int(item["id"]) if "prio" in item.keys() else random.randint(1,3)
+            items.append((int(item["id"]), prio, int(item["quantity"])))
+        data["items_id_prio_quant"] = items
+        
+        # process data & get estimate
+        proportions = fill_last_transport_unit(data,data_manager)
+
+        # data logging
+        if args.verbose:
+            app.logger.info(data)
+
+        return proportions
 
 api.add_resource(Estimator, '/estimator')
+api.add_resource(Packer, '/packer')
 
 if __name__ == '__main__':
     app.run(debug=True)
