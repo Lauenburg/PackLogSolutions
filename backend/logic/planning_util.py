@@ -1,4 +1,5 @@
 from . import Item, TransportUnit
+import math
     
 def free_trans_cap(transport_units, report=False):
     """ Calculates the free capacity in the transport units.
@@ -44,3 +45,6 @@ def full_items_cap(pool, prio=None):
     for client_id in pool:
         capacity += client_items_cap(pool, client_id, prio=prio)
     return capacity
+
+# Function to round to second digit
+def ceil(number, digits) -> float: return math.ceil((10.0 ** digits) * number) / (10.0 ** digits)
