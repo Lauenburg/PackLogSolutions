@@ -1,5 +1,5 @@
 from . import Item, TransportUnit
-from .planning_util import free_trans_cap, client_items_cap, full_items_cap
+from .planning_util import free_trans_cap, client_items_cap, full_items_cap, ceil
 import copy
 
 class Packer:
@@ -101,7 +101,10 @@ class Packer:
         """
         original_cap = client_items_cap(self.pool_ordered, client_id, prio)
         unpacked_cap = client_items_cap(self.pool_ordered_unpacked, client_id, prio)
-        return original_cap-unpacked_cap, unpacked_cap
+        key_first = next(iter(self.transport_units.keys()))
+        volume = self.transport_units[key_first].volume
+        return (original_cap-unpacked_cap)/volume, unpacked_cap/volume
+        # return ceil(100/original_cap * (original_cap-unpacked_cap), 2), ceil(100/original_cap * unpacked_cap,2)
 
     def _load_item(self, client_id, item_id, item, trans_unit):
         """ Writes the given item to the loaded_item_pool dictionary.
