@@ -4,12 +4,12 @@ from datetime import date
 
 if __name__ == "__main__":
     json_dic = read_from_xl('./backend/examples/sample_orders/first_orders.xlsx', 
-                            "order_one", ["quantity", "id", "name", "weight", "volume"])
+                            "order_one", ["quantity", "id", "name", "weight", "volume", "prio"])
 
     # Create order dic from parsed order
     order_one = {"client_id": 1001, "order_id": 34, "date": date.today(), "out_date": date(2021,2,1), "items_id_prio_quant": []}
     for item in json_dic:
-        order_one["items_id_prio_quant"].append((int(item["id"]), None, int(item["quantity"])))
+        order_one["items_id_prio_quant"].append((int(item["id"]), int(item["prio"]), int(item["quantity"])))
 
     print(order_one)
 
