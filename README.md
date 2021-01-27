@@ -98,7 +98,7 @@ flutter build web
 
 ## Architecture Overview
 
-<div style="text-align:center"><img src="https://i.ibb.co/DfNQbsX/Screenshot-2021-01-27-134921.png" alt="Screenshot-2021-01-27-134921" border="0" width=400></div>
+<div style="text-align:center"><img src="images/overview.png" alt="Screenshot-2021-01-27-134921" border="0" width=400></div>
 
 The architecture overview presents the frontend and backend and visualizes the communication pathways via the API. Note that integration of other APIs such as SAP is possible via the API layer. In the following, we start by describing the backend.
 
