@@ -1,4 +1,4 @@
-# PackLog Rough Estimation
+# Tech Description
 
 ## Introduction
 Every day, logistics companies deal with the task of packing their goods into the appropriate transport vehicles in order to deliver them to the end customer. This requires forward planning and careful communication between the individual parties, starting with the customer service and planner to the packer and final logistic operator. This whole process is very complex, requires many iterations and involves many unknowns. Also the planning problem on how to pack all items into the transport vehicles is far from trivial as it involves all kinds of variations and constraints. Maximum weight, Maximum space and balanced axis distribution, just to name a few. So far, this complexity can only be handled by human brianpower. Using machine intelligence to support this complex problem would only be feasible and beneficial if the whole process is digitalized, so that the optimized planning for a given order can also be passed on to the packer and modifications would take affect immediately. In order to make such a holistic approach feasible, a step-by-step approach is most appropiate.
@@ -14,51 +14,7 @@ In the following we will describe the whole platform architecture, consisting of
 
 <br></br>
 
-## Getting Started
-
-### Requirements
-
-* [Install Anaconda](https://docs.anaconda.com/anaconda/install/)
-
-### Installation
-
-1. Clone Repository
-```
-git clone https://gitlab.lrz.de/lupries/packlogsolutions.git
-cd packlogsolutions
-```
-
-2. Setup Virtual Python Environment
-```
-conda update conda
-conda create --name packlog python=3.8
-conda activate packlog
-conda install --file requirements.txt
-```
-after you have installed new python packages, update requirements.txt file:
-```
-conda list --explicit > requirements.txt
-```
-
-### Start Backend Server
-
-The following command will start a local server (http://127.0.0.1:5000/) hosting the backend API:
-```
-python -m backend.api.api -n "database_name" -p "password"
-```
-
-### Start Frontend
-
-- [Install Flutter (Beta)](https://flutter.dev/docs/get-started/install)
-- [Install Chrome]()
-```
-flutter config --enable-web
-flutter devices     # check if chrome is avalable
-flutter run -d chrome
-flutter build web
-```
-
-<br></br>
+<div style="page-break-after: always;"></div>
 
 ## Things used in this project
 
@@ -95,6 +51,8 @@ flutter build web
 `frontend` - directory for flutter ui
 
 <br></br>
+
+<div style="page-break-after: always;"></div>
 
 ## Architecture Overview
 
@@ -167,6 +125,8 @@ To make our backend service accessible via the API, we need to deploy and run it
 >#### [Scalingo Cloud Hosting](https://scalingo.com/) <img src="https://avatars.githubusercontent.com/u/4868969?s=280&v=4" alt="drawing" width="12"/>
 >Scalingo offers Automatic Cloud Hosting which allows for easy setup and deployment of a server in the cloud. We use this platform to host our python backend API.
 
+<div style="page-break-after: always;"></div>
+
 ## Frontend
 
 The User Interface represents the graphical interface through which the user can interact with the platform. We require it to be well-structured, easy to use and fast-responsive. Since the user should be able to access the platform from any device and location we decided to go with a the cross-platform development framework Flutter which allows us to deploy target applications for all platforms (including the web) with a single codebase.
@@ -180,7 +140,7 @@ All developed views and a short description can be found below.
 
 ### Landing Page View
 
-<div style="text-align:center"><img src="images/image9.png" alt="image9" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/SB6gtq9/image9.png" alt="image9" border="2" width=500></div>
 
 >User: Customer Service, Planner
 
@@ -188,7 +148,7 @@ The Lading Page gives access to the appropriate user via a Login Screen.
 
 ### Recipients Overview
 
-<div style="text-align:center"><img src="images/image10.png" alt="image10" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/zh7YJSd/image10.png" alt="image10" border="2" width=500></div>
 
 >User: Customer Service
 
@@ -196,7 +156,7 @@ This view lists all the recipients including the current status of the orders an
 
 ### Orders View
 
-<div style="text-align:center"><img src="images/image7.png" alt="image7" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/jZgkJ8W/image7.png" alt="image7" border="2" width=500></div>
 
 >User: Customer Service
 
@@ -205,7 +165,7 @@ Having selected a set of items we can click on the `Plan` Button in the top righ
 
 ### Confirm Selection View
 
-<div style="text-align:center"><img src="images/image3.png" alt="image3" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/JRFb3Wv/image3.png" alt="image3" border="2" width=500></div>
 
 >User: Customer Service
 
@@ -213,13 +173,13 @@ Having selected a set of items from a recipients item pool, and after clicking o
 
 ### Planning Draft View
 
-<div style="text-align:center"><img src="images/image2.png" alt="image2" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/z5mvKJ2/image2.png" alt="image2" border="2" width=500></div>
 
 >User: Customer Service
 
 This view depicts how many vehicles of the given type are needed to fit all items with prio one. The fittet items are marked in green. The three bars on the bottom right depict (left to right) the number of fully packed transport vehicles, the space utilisation of the last (not fully packed) vehicle, the capacity of the so far unpacked items of prio two (light blue) and prio three (dark blue). 
 
-<div style="text-align:center"><img src="images/image1.png" alt="image1" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/2ZrvJmS/image1.png" alt="image1" border="2" width=500></div>
 
 To utilize the space of the vehicle that is not fully packed yet, we can click on the `Click for Optimization` button on the bottom right corner. 
 In the background the frontend now sends an http request to the backend server attached with all the selected item ids. In the Backend, our intelligent logistic engine now fits as many of the items of prio two (light blue) and prio three (dark blue) into the free space. The items which fitted the last truck are depicted in orange.
@@ -228,7 +188,7 @@ We can now either select `Save` or `Request Planner` in the top right view. Sele
 
 ### Planner Request View
 
-<div style="text-align:center"><img src="images/image8.png" alt="image8" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/WGnHLYg/image8.png" alt="image8" border="2" width=500></div>
 
 >User: Planner
 
@@ -236,7 +196,7 @@ As the planner I can log into Packlog and check on the `Planner Request View` wh
 
 ### Planner Confirmation View
 
-<div style="text-align:center"><img src="images/image11.png" alt="image11" border="2" width=500></div>
+<div style="text-align:center"><img src="https://i.ibb.co/kcqRPNw/image11.png" alt="image11" border="2" width=500></div>
 
 >User: Planner
 
@@ -250,7 +210,55 @@ For the purpose of this prototype, we deploy our User Interface as a web applica
 >#### [Firebase Hosting](https://firebase.google.com/docs/hosting) <img src="https://assets.stickpng.com/images/5847f40ecef1014c0b5e488a.png" alt="drawing" width="12"/> 
 >Firebase Hosting provides fast and secure hosting for our web app. We choose Firebase Hosting because it allows us to quickly deploy our web app and serve both static and dynamic content to the web. Firebase offers a free pricing plan that is sufficient to serve our User Interface in the prototyping stage and easy upgradable to a 'pay as you go' plan.
 
+<div style="page-break-after: always;"></div>
+
+## Getting Started
+
+### Requirements
+
+* [Install Anaconda](https://docs.anaconda.com/anaconda/install/)
+
+### Installation
+
+1. Clone Repository
+```
+git clone https://gitlab.lrz.de/lupries/packlogsolutions.git
+cd packlogsolutions
+```
+
+2. Setup Virtual Python Environment
+```
+conda update conda
+conda create --name packlog python=3.8
+conda activate packlog
+conda install --file requirements.txt
+```
+after you have installed new python packages, update requirements.txt file:
+```
+conda list --explicit > requirements.txt
+```
+
+### Start Backend Server
+
+The following command will start a local server (http://127.0.0.1:5000/) hosting the backend API:
+```
+python -m backend.api.api -n "database_name" -p "password"
+```
+
+### Start Frontend
+
+- [Install Flutter (Beta)](https://flutter.dev/docs/get-started/install)
+- [Install Chrome]()
+```
+flutter config --enable-web
+flutter devices     # check if chrome is avalable
+flutter run -d chrome
+flutter build web
+```
+
 <br></br>
+
+<div style="page-break-after: always;"></div>
 
 ## API Documentation
 
