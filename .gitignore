@@ -143,3 +143,7 @@ cython_debug/
 
 # exel
 ~$*.xls*
+
+# exclude data
+Artikel_V1.csv
+TransObj_V1.csv
