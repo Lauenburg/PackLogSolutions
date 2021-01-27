@@ -24,6 +24,7 @@ def read_from_xl(path_to_xl, sheet_name, ord_list_column_names):
     dic_list = []
 
     # Iterate through each row in worksheet and fetch values into dict
+    print(sheet.max_row)
     for row in islice(sheet.values, 1, sheet.max_row):
         sub_dic = OrderedDict()
         for i, filed in enumerate(ord_list_column_names):    

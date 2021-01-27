@@ -2,11 +2,11 @@ import requests
 import json
 import random
 
-BASE_URL = "http://127.0.0.1:5000/"
+BASE_URL = "https://packlogsolutions.osc-fr1.scalingo.io/"
 
 # test data
 
-with open("./backend/examples/sample_orders/first_orders_order_one.json", 'r') as f:
+with open("./backend/examples/sample_orders/second_order_order_two.json", 'r') as f:
     items = json.load(f)
 for item in items:
     item["prio"] = random.randint(1,3)
