@@ -1,16 +1,26 @@
-# Tech Description
+<div style="text-align:center"><img src="https://i.ibb.co/7NSVyms/logo.png" alt="drawing" width="200"/></div>
+
+# Tech Description 
+
+## Demo
+
+[PackLog Web App](https://packlog-7150b.web.app/) (Password: ABSCHALELEMENT)
+
+## Contributors
+
+- Lukas Pries (lukas.pries@tum.de)
+- Leander Lauenburg (leander.lauenburg@gmail.com)
+- Marcel Perez San Blas (marcel.perez-san-blas@manageandmore.de)
+- Franz Schubart (franz.schubart@manageandmore.de)
 
 ## Introduction
-Every day, logistics companies deal with the task of packing their goods into the appropriate transport vehicles in order to deliver them to the end customer. This requires forward planning and careful communication between the individual parties, starting with the customer service and planner to the packer and final logistic operator. This whole process is very complex, requires many iterations and involves many unknowns. Also the planning problem on how to pack all items into the transport vehicles is far from trivial as it involves all kinds of variations and constraints. Maximum weight, Maximum space and balanced axis distribution, just to name a few. So far, this complexity can only be handled by human brianpower. Using machine intelligence to support this complex problem would only be feasible and beneficial if the whole process is digitalized, so that the optimized planning for a given order can also be passed on to the packer and modifications would take affect immediately. In order to make such a holistic approach feasible, a step-by-step approach is most appropiate.
-
-In cooperation with our partner companies (PERI, Hilti, ...) we discovered that the greatest added value of a digital solution can already be achieved in the rough planning stage. The rough planning stage takes place directly after the customer service has received an order from the customer. For every order, the customer service needs a rough estimate of the required transport units in order to book them and also to give feedback to the customer to adjust the order if the oder would only fill half a truck. This currently involves consultation of the planner and a feedback delay of up to 3 days. Imagine iterating over this several times. 
+Every day, logistics companies struggle to plan, pack, and ship their orders efficiently. It is a process that requires careful planning and communication between individual parties like the customer service (CS), planners,  packers, and logistic operators. Additionally, seemingly simple tasks, like efficiently packing a transport vehicle, are far from trivial due to multiple constraints. In short: The process's many stakeholders and unknowns demand considerable manual work and human brainpower.  Therefore, applying machine intelligence (MI) to this process has immense potential  - orders would directly be passed to the packer, modifications would take effect immediately, scheduling and packing efficiency would increase. However, to make the application of MI feasible the whole process first has to be digitalized. To this end, we proposed a holistic step-by-step approach.  In close cooperation with our industrial partners, we identified digitalizing the "rough planning stage" as the first step. The rough planning stage takes place directly after the CS has received an order from a customer. The CS relays the order to a planner. The planner estimates the required transport units and communicates this information back to the CS. At this point, the CS gives feedback to the customer on the space utilization of the transport vehicles. Should the customer demand no further changes, the CS book's the vehicles. Currently, this first stage takes on average three days.
 
 
 ## Rough Estimation Tool
-Therefore we developed a rough estimation tool that allows the customer service to get an transport unit estimate immediately by simply selecting the respective order. o
-Our solution consists of a clearly structured user interface that can be accessed from everywhere and on any device (Phone, Tables, Web, Desktop). The intelligent planning algorithms will be provided by a central server that can be access from the frontend (UI) through well-defined API calls. This facilitates easy accessibility and simple updates of the planning models.
+We developed a rough estimation tool that allows the CS to receive a transport unit estimate immediately by simply selecting the respective order. Our solution comprises an intuitive user interface (UI) that can be accessed everywhere and on any device (Phone, Tablet, Web, Desktop). The UI communicates via well-defined API calls with the central server that is running our intelligent planning algorithms. This makes our solution lightweight, facilitates accessibility, and allows for an easy adaption of the planning models.
 
-In the following we will describe the whole platform architecture, consisting of a frontend and backend and all of its components in detail.
+In the following, we will describe the platform's architecture.
 
 <br></br>
 
@@ -58,18 +68,18 @@ In the following we will describe the whole platform architecture, consisting of
 
 <div style="text-align:center"><img src="https://i.ibb.co/DfNQbsX/Screenshot-2021-01-27-134921.png" alt="Screenshot-2021-01-27-134921" border="0" width=400></div>
 
-The architecture overview presents the frontend and backend and visualizes the communication pathways via the API. Note that integration of other APIs such as SAP is possible via the API layer. In the following, we start by describing the backend.
+The architecture overview presents the frontend, backend and visualizes the API. Note that integration of other APIs such as SAP is possible via the API layer. In the following, we start by describing the backend.
 
 <br></br>
 
 ## Backend
-The backend represents the brain of our platform as it holds the whole logic to calculate our rough planning estimate. For a modular structure and simplistic design we choose Python as programming language to handle all computations in the backend.
+The backend represents the brain of our platform. It holds the whole logic to calculate our rough planning estimations. To guaranty a modular structure and a simplistic design, we implemented the backend in Python.
 
 >#### [Python](https://www.python.org/) <img src="https://assets.stickpng.com/images/5848152fcef1014c0b5e4967.png" alt="drawing" width="15"/>
 >Python is an interpreted, object-oriented, high-level programming language which has simple and easy to learn syntax. It emphasizes readability and therefore reduces the cost of program maintenance. Further, Python supports modules and packages, which encourages program modularity and code reuse. Python is therefore the right choice to programm our modular estimation logic in the backend. We use Python to setup the communication with the front-end and process incoming lists of data. It allows us to performing math calculations and incorporate common machine learning frameworks.
 
 #### Entities
-In the backend we created object classes of all relevant entities such as `Item, Order, TransportUnit`. Code can be found unter `backend/logic`.
+In the backend, we created object classes of all relevant entities such as `Item, Order, TransportUnit`. Code can be found under `backend/logic`.
 
 ```
 # How to initialize data objects
@@ -77,10 +87,10 @@ item            = Item(id=1, name="test_item", dimensions=[1., 1., 1.], weight=1
 item            = Item.from_item_query(item_query)
 ```
 
-Several modules are needed to process the incoming order data.
+>Several modules are needed to process the incoming order data.
 
 #### DataManager
-First, the `DataManager` is responsible for quering all relevant data about the items (weight, volume, material, ...) from the database (described below). 
+First, the `DataManager` is responsible for querying all relevant data about the items (weight, volume, material, ...) from the database (described below). 
 
 ```
 # How to use DataManager
@@ -88,8 +98,10 @@ data_manager = DataManager(password, dbname, username)
 data_manager.connect()
 ```
 
+<div style="page-break-after: always;"></div>
+
 #### Scheduler
-Afer having constructed parameterized objects of all items in the order list, the `Scheduler` structures all items based on the recipient and sorts all items based on priorities and delivery date.
+Having constructed parameterized objects of all items in the order list, the `Scheduler`-Class is used to sort the orders based on recipient-ID, priorities and delivery date.
 
 ```
 # How to use scheduler
@@ -120,7 +132,7 @@ As described in the architectue overview, our backend is communicating to the fr
 >Flask-RESTful is an extension for Flask (web development framework) that adds support for quickly building REST APIs. It is a lightweight abstraction that works with our backend and database.
 
 ### Backend Hosting
-To make our backend service accessible via the API, we need to deploy and run it to a server platform. There are hundreds of cloud platforms out there and we choose Scalingo as of them for the purpose of this demo. For a detailed describtion on how to deploy your code to the server environment and setup the database on the server we refer to the [Scalingo Documentation](https://doc.scalingo.com/).
+To make our backend service accessible via the API, we need to deploy and run it to a server platform. There are hundreds of such cloud platforms out there.  We choose Scalingo for this demo. For a detailed description of how to deploy your code to the server environment and set up the database please refer to the [Scalingo Documentation](https://doc.scalingo.com/).
 
 >#### [Scalingo Cloud Hosting](https://scalingo.com/) <img src="https://avatars.githubusercontent.com/u/4868969?s=280&v=4" alt="drawing" width="12"/>
 >Scalingo offers Automatic Cloud Hosting which allows for easy setup and deployment of a server in the cloud. We use this platform to host our python backend API.
@@ -129,7 +141,7 @@ To make our backend service accessible via the API, we need to deploy and run it
 
 ## Frontend
 
-The User Interface represents the graphical interface through which the user can interact with the platform. We require it to be well-structured, easy to use and fast-responsive. Since the user should be able to access the platform from any device and location we decided to go with a the cross-platform development framework Flutter which allows us to deploy target applications for all platforms (including the web) with a single codebase.
+The User Interface (UI) represents the graphical interface through which the user can interact with the platform. We required it to be well-structured, easy to use, and highly responsive. To make our tool available to any platform, device, and location, we implemented it using the cross-platform development framework Flutter. A Flutter application can be deployed to all platforms (including the web) using a single codebase.
 
 >#### [Flutter UI Framework](https://flutter.dev/) <img src="https://www.kindpng.com/picc/m/355-3557482_flutter-logo-png-transparent-png.png" alt="drawing" width="15"/>
 >Flutter is a cross-platform User Interface (UI) toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase. The framework allows to build fully-customizable widgets in a layered achitecture. A major advatage is that one developed codebase can be compiled to deploy a webapp, desktop as well as ios and android apps.
@@ -144,7 +156,7 @@ All developed views and a short description can be found below.
 
 >User: Customer Service, Planner
 
-The Lading Page gives access to the appropriate user via a Login Screen.
+The landing page gives access to the appropriate user via a Login Screen.
 
 ### Recipients Overview
 
@@ -154,14 +166,15 @@ The Lading Page gives access to the appropriate user via a Login Screen.
 
 This view lists all the recipients including the current status of the orders and additional information. Each recipient can be selected to view the ordered items.
 
-### Orders View
+<div style="page-break-after: always;"></div>
+
+### Order View
 
 <div style="text-align:center"><img src="https://i.ibb.co/jZgkJ8W/image7.png" alt="image7" border="2" width=500></div>
 
 >User: Customer Service
 
-This view depicts the order pool of a selected recipient. The user can select different items manually. He can sort the pool based on the different column categories, e.g. `Prio` and eventually select all items by checking the top left box.
-Having selected a set of items we can click on the `Plan` Button in the top right corner.
+The order view depicts the order pool of a selected recipient. The user can select different items manually, sort the pool based on the column categories, or select all items by checking the top left box. Having selected a set of items we can click on the `Plan` Button in the top right corner.
 
 ### Confirm Selection View
 
@@ -177,14 +190,14 @@ Having selected a set of items from a recipients item pool, and after clicking o
 
 >User: Customer Service
 
-This view depicts how many vehicles of the given type are needed to fit all items with prio one. The fittet items are marked in green. The three bars on the bottom right depict (left to right) the number of fully packed transport vehicles, the space utilisation of the last (not fully packed) vehicle, the capacity of the so far unpacked items of prio two (light blue) and prio three (dark blue). 
+This view depicts how many vehicles of the given type are needed to fit all items with priority one. The fitted items are marked in green. The three bars on the bottom right depict (left to right) the number of fully packed transport vehicles, the space utilization of the last (not fully packed) vehicle, the capacity of the so far unpacked items of priority two (light blue), and priority three (dark blue).
 
 <div style="text-align:center"><img src="https://i.ibb.co/2ZrvJmS/image1.png" alt="image1" border="2" width=500></div>
 
 To utilize the space of the vehicle that is not fully packed yet, we can click on the `Click for Optimization` button on the bottom right corner. 
-In the background the frontend now sends an http request to the backend server attached with all the selected item ids. In the Backend, our intelligent logistic engine now fits as many of the items of prio two (light blue) and prio three (dark blue) into the free space. The items which fitted the last truck are depicted in orange.
+In the background, the frontend now sends an HTTP request to the backend server attached with all the selected item ids. In the backend, our intelligent logistic engine now fits as many of the items of prio two (light blue) and prio three (dark blue) into the free space. The items which fitted the last truck are depicted in orange.
 
-We can now either select `Save` or `Request Planner` in the top right view. Selecting save we return to the `Recipients Overview` and can start planning the next order. Selecting `Request Planner` we also get redirected to the `Recipients Overview` however in this case the order now appears on the `Planner Request View` and is still pending for confirmation by a planner.
+We can now either select `Save` or `Request Planner` in the top right view. Selecting save we return to the `Recipients Overview` and can start planning the next order. Selecting `Request Planner` we also get redirected to the `Recipients Overview` however in this case the order now appears on the `Planner Request View` and is still pending confirmation by a planner.
 
 ### Planner Request View
 
@@ -192,7 +205,7 @@ We can now either select `Save` or `Request Planner` in the top right view. Sele
 
 >User: Planner
 
-As the planner I can log into Packlog and check on the `Planner Request View` which orders need to be confirmed by a planner. The view lists all the orders of recipients that have to be double checked.
+As the planner, I can log into Packlog and check on the `Planner Request View` which orders need to be confirmed by a planner. The view lists all the orders of recipients that have to be double-checked.
 
 ### Planner Confirmation View
 
@@ -200,12 +213,11 @@ As the planner I can log into Packlog and check on the `Planner Request View` wh
 
 >User: Planner
 
-After selecting an order that is pending for confirmation: The planner can remove items from the order and adjust all other values, like the number of trucks needed. In the top right corner the planner can either delete the draft or save it.  
-Clicking save or delete the planner is redirected to the `Planner Request View` where he can check the next order in need of confirmation.
+Having selected an order pending confirmation, the planner can remove items from the order and adjust all other values, like the number of trucks needed. In the top right corner, the planner can either delete the draft or save it. Saving or deleting the draft, the planner gets redirected to the `Planner Request View`. Here he can check the next order in need of confirmation.
 
 ### Frontend Hosting
 
-For the purpose of this prototype, we deploy our User Interface as a web application that can be accessed via a browser. Note that it is also possible to deploy the Interface as a mobile or desktop application. To host the web application on a public domain we use the Firebase platform which is just one of many website hosting platforms.
+For the prototype, we deployed our User Interface as a web application accessible via a browser. Note that it is also possible to deploy the Interface as a mobile or desktop application. To host the web application on a public domain we use the platform Firebase.
 
 >#### [Firebase Hosting](https://firebase.google.com/docs/hosting) <img src="https://assets.stickpng.com/images/5847f40ecef1014c0b5e488a.png" alt="drawing" width="12"/> 
 >Firebase Hosting provides fast and secure hosting for our web app. We choose Firebase Hosting because it allows us to quickly deploy our web app and serve both static and dynamic content to the web. Firebase offers a free pricing plan that is sufficient to serve our User Interface in the prototyping stage and easy upgradable to a 'pay as you go' plan.
