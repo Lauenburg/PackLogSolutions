@@ -71,25 +71,25 @@ flutter build web
 
 ### Programming Languages
 
-<img src="https://assets.stickpng.com/images/5848152fcef1014c0b5e4967.png" width="15"/> [Python](https://www.python.org/)
+<img src="doc/logos/python.png" width="15"/> [Python](https://www.python.org/)
 
-<img src="https://avatars.githubusercontent.com/u/1609975?s=280&v=4" width="15"/> [Dart](https://dart.dev/)
+<img src="doc/logos/dart.png" width="15"/> [Dart](https://dart.dev/)
 
-<img src="https://img.favpng.com/11/4/14/microsoft-sql-server-computer-icons-oracle-corporation-oracle-database-png-favpng-k4KjYieuYpSdy2bxiud63NBP2.jpg" width="15"/> [SQL](https://dart.dev/)
+<img src="doc/logos/sql.png" width="15"/> [SQL](https://dart.dev/)
 
 ### Frameworks
 
-<img src="https://www.pngfind.com/pngs/m/62-626422_python-logo-clipart-drawing-flask-hd-png-download.png" width="13"/> [Flask RESTful API](https://flask-restful.readthedocs.io/en/latest/)
+<img src="doc/logos/flask.png" width="13"/> [Flask RESTful API](https://flask-restful.readthedocs.io/en/latest/)
 
-<img src="https://assets.stickpng.com/images/584815fdcef1014c0b5e497a.png" width="15"/> [PostgreSQL Database](https://www.postgresql.org/)
+<img src="doc/logos/postgres.png" width="15"/> [PostgreSQL Database](https://www.postgresql.org/)
 
-<img src="https://www.kindpng.com/picc/m/355-3557482_flutter-logo-png-transparent-png.png" width="15"/> [Flutter UI Framework](https://flutter.dev/)
+<img src="doc/logos/flutter.png" width="15"/> [Flutter UI Framework](https://flutter.dev/)
 
 ### Platforms
 
-<img src="https://assets.stickpng.com/images/5847f40ecef1014c0b5e488a.png" width="12"/> [Firebase Hosting](https://firebase.google.com/docs/hosting)
+<img src="doc/logos/firebase.png" width="12"/> [Firebase Hosting](https://firebase.google.com/docs/hosting)
 
-<img src="https://avatars.githubusercontent.com/u/4868969?s=280&v=4" width="12"/> [Scalingo Cloud Hosting](https://scalingo.com/)
+<img src="doc/logos/scalingo.png" width="12"/> [Scalingo Cloud Hosting](https://scalingo.com/)
 
 <br></br>
 
@@ -114,7 +114,7 @@ The architecture overview presents the frontend, backend and visualizes the API.
 ## Backend
 The backend represents the brain of our platform. It holds the whole logic to calculate our rough planning estimations. To guaranty a modular structure and a simplistic design, we implemented the backend in Python.
 
->#### [Python](https://www.python.org/) <img src="https://assets.stickpng.com/images/5848152fcef1014c0b5e4967.png"  width="15"/>
+>#### [Python](https://www.python.org/) <img src="doc/logos/python.png"  width="15"/>
 >Python is an interpreted, object-oriented, high-level programming language which has simple and easy to learn syntax. It emphasizes readability and therefore reduces the cost of program maintenance. Further, Python supports modules and packages, which encourages program modularity and code reuse. Python is therefore the right choice to programm our modular estimation logic in the backend. We use Python to setup the communication with the front-end and process incoming lists of data. It allows us to performing math calculations and incorporate common machine learning frameworks.
 
 #### Entities
@@ -159,26 +159,26 @@ client_items_cap        = packer.client_items_cap(pool, client_id, prio=None, or
 ```
 
 The backend also includes a database which holds all relevant data of the items such as id, name, weight, volume and material. We therefore choose a popular SQL database to store this information. The connection to the backend code established by SQL queries that can be made using the python package `psycopg2`.
->#### [PostgreSQL Database](https://www.postgresql.org/) <img src="https://assets.stickpng.com/images/584815fdcef1014c0b5e497a.png"  width="15"/>
+>#### [PostgreSQL Database](https://www.postgresql.org/) <img src="doc/logos/postgres.png"  width="15"/>
 >PostgreSQL is a powerful, open source object-relational database system which has earned a strong reputation for reliability, feature robustness, and performance. PostgreSQL lets you setup professional SQL databases and is widely supported for hosting databases in the cloud. We choose PostgreSQL to create a professional database of all Item information that can easily be deployed to our cloud environment.
 
 ### REST API
 As described in the architectue overview, our backend is communicating to the frontend via an a REpresentational State Transfer (REST) API. This allows us to get the planning estimate by simply sending a (http) POST request attached with the order information. In return the Backend API will reply with a return message including the final estimate. We used the Flask RESTful framework to setup the appropriate request endpoints. A detailed description of the API calls can be found in API Documentation section below. Code can be found under `backend/api`.
 
->#### [Flask RESTful API](https://flask-restful.readthedocs.io/en/latest/) <img src="https://www.pngfind.com/pngs/m/62-626422_python-logo-clipart-drawing-flask-hd-png-download.png"  width="13"/>
+>#### [Flask RESTful API](https://flask-restful.readthedocs.io/en/latest/) <img src="doc/logos/flask.png"  width="13"/>
 >Flask-RESTful is an extension for Flask (web development framework) that adds support for quickly building REST APIs. It is a lightweight abstraction that works with our backend and database.
 
 ### Backend Hosting
 To make our backend service accessible via the API, we need to deploy and run it to a server platform. There are hundreds of such cloud platforms out there.  We choose Scalingo for this demo. For a detailed description of how to deploy your code to the server environment and set up the database please refer to the [Scalingo Documentation](https://doc.scalingo.com/).
 
->#### [Scalingo Cloud Hosting](https://scalingo.com/) <img src="https://avatars.githubusercontent.com/u/4868969?s=280&v=4"  width="12"/>
+>#### [Scalingo Cloud Hosting](https://scalingo.com/) <img src="doc/logos/scalingo.png"  width="12"/>
 >Scalingo offers Automatic Cloud Hosting which allows for easy setup and deployment of a server in the cloud. We use this platform to host our python backend API.
 
 ## Frontend
 
 The User Interface (UI) represents the graphical interface through which the user can interact with the platform. We required it to be well-structured, easy to use, and highly responsive. To make our tool available to any platform, device, and location, we implemented it using the cross-platform development framework Flutter. A Flutter application can be deployed to all platforms (including the web) using a single codebase.
 
->#### [Flutter UI Framework](https://flutter.dev/) <img src="https://www.kindpng.com/picc/m/355-3557482_flutter-logo-png-transparent-png.png"  width="15"/>
+>#### [Flutter UI Framework](https://flutter.dev/) <img src="doc/logos/flutter.png"  width="15"/>
 >Flutter is a cross-platform User Interface (UI) toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase. The framework allows to build fully-customizable widgets in a layered achitecture. A major advatage is that one developed codebase can be compiled to deploy a webapp, desktop as well as ios and android apps.
 
 All developed views and a short description can be found below.
@@ -252,7 +252,7 @@ Having selected an order pending confirmation, the planner can remove items from
 
 For the prototype, we deployed our User Interface as a web application accessible via a browser. Note that it is also possible to deploy the Interface as a mobile or desktop application. To host the web application on a public domain we use the platform Firebase.
 
->#### [Firebase Hosting](https://firebase.google.com/docs/hosting) <img src="https://assets.stickpng.com/images/5847f40ecef1014c0b5e488a.png"  width="12"/> 
+>#### [Firebase Hosting](https://firebase.google.com/docs/hosting) <img src="doc/logos/firebase.png"  width="12"/> 
 >Firebase Hosting provides fast and secure hosting for our web app. We choose Firebase Hosting because it allows us to quickly deploy our web app and serve both static and dynamic content to the web. Firebase offers a free pricing plan that is sufficient to serve our User Interface in the prototyping stage and easy upgradable to a 'pay as you go' plan.
 
 <br></br>
