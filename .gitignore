@@ -146,3 +146,6 @@ cython_debug/
 # exclude data
 Artikel_V1.csv
 TransObj_V1.csv
+
+# macos
+.DS_Store
